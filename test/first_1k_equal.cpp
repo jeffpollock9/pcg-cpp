@@ -7,7 +7,7 @@
 #define RANDO_FIRST_1K_TEST(rng)                                               \
     TEST(rng, first_1k_equal)                                                  \
     {                                                                          \
-        const int n = 1;                                                       \
+        const int n = 1000;                                                    \
                                                                                \
         rando::rng rando_rng(1);                                               \
         rng pcg_cpp_rng(1);                                                    \
@@ -20,12 +20,10 @@
 
 RANDO_FIRST_1K_TEST(pcg32)
 RANDO_FIRST_1K_TEST(pcg32_oneseq)
-RANDO_FIRST_1K_TEST(pcg32_unique)
 RANDO_FIRST_1K_TEST(pcg32_fast)
 
 RANDO_FIRST_1K_TEST(pcg64)
 RANDO_FIRST_1K_TEST(pcg64_oneseq)
-RANDO_FIRST_1K_TEST(pcg64_unique)
 RANDO_FIRST_1K_TEST(pcg64_fast)
 
 RANDO_FIRST_1K_TEST(pcg32_k2)

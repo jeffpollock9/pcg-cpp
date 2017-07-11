@@ -1,6 +1,7 @@
 
 set(RANDO_TESTS
-    first_1k_equal)
+    first_1k_equal
+    unique_not_equal)
 
 foreach (test ${RANDO_TESTS})
     set(TEST_NAME "${test}_test")
