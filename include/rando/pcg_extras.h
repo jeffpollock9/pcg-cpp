@@ -690,8 +690,8 @@ operator<<(std::ostream& out, printable_typename<T>)
 
 #endif // __cpp_rtti || __GXX_RTTI
 
-} // ns pcg_extras
+} // namespace pcg_extras
 
-} // ns rando
+} // namespace rando
 
 #endif // RANDO_PCG_EXTRAS_H

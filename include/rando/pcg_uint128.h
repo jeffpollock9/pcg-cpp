@@ -791,8 +791,8 @@ operator>>(const uint_x4<UInt, UIntX2>& v, const bitcount_t shift)
     return r;
 }
 
-} // ns pcg_extras
+} // namespace pcg_extras
 
-} // ns rando
+} // namespace rando
 
 #endif // RANDO_PCG_UINT128_H

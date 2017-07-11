@@ -1816,7 +1816,7 @@ extended<table_pow2, advance_pow2, baseclass, extvalclass, kdd>::advance(
     }
 }
 
-} // ns pcg_detail
+} // namespace pcg_detail
 
 namespace pcg_engines
 {
@@ -1977,7 +1977,7 @@ template <bitcount_t table_pow2, bitcount_t advance_pow2, bool kdd = true>
 using ext_setseq_xsl_rr_128_64 =
     ext_std64<table_pow2, advance_pow2, setseq_xsl_rr_128_64, kdd>;
 
-} // ns pcg_engines
+} // namespace pcg_engines
 
 typedef pcg_engines::setseq_xsh_rr_64_32 pcg32;
 typedef pcg_engines::oneseq_xsh_rr_64_32 pcg32_oneseq;
@@ -2059,6 +2059,6 @@ typedef pcg_engines::ext_oneseq_xsl_rr_128_64<10, 128, false> pcg64_c1024_fast;
 typedef pcg_engines::ext_setseq_xsh_rr_64_32<14, 16, true> pcg32_k16384;
 typedef pcg_engines::ext_oneseq_xsh_rs_64_32<14, 32, true> pcg32_k16384_fast;
 
-} // ns rando
+} // namespace rando
 
 #endif // RANDO_PCG_RANDOM_H
