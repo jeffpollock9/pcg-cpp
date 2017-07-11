@@ -945,8 +945,8 @@ struct xsh_rs_mixin
     static xtype
     output(itype internal)
     {
-        constexpr bitcount_t bits      = bitcount_t(sizeof(itype) * 8);
-        constexpr bitcount_t xtypebits = bitcount_t(sizeof(xtype) * 8);
+        constexpr auto bits            = bitcount_t(sizeof(itype) * 8);
+        constexpr auto xtypebits       = bitcount_t(sizeof(xtype) * 8);
         constexpr bitcount_t sparebits = bits - xtypebits;
         constexpr bitcount_t opbits    = sparebits - 5 >= 64
             ? 5
@@ -962,7 +962,7 @@ struct xsh_rs_mixin
         bitcount_t rshift =
             opbits ? bitcount_t(internal >> (bits - opbits)) & mask : 0;
         internal ^= internal >> xshift;
-        xtype result = xtype(internal >> (bottomspare - maxrandshift + rshift));
+        auto result = xtype(internal >> (bottomspare - maxrandshift + rshift));
         return result;
     }
 };
@@ -979,8 +979,8 @@ struct xsh_rr_mixin
     static xtype
     output(itype internal)
     {
-        constexpr bitcount_t bits         = bitcount_t(sizeof(itype) * 8);
-        constexpr bitcount_t xtypebits    = bitcount_t(sizeof(xtype) * 8);
+        constexpr auto bits               = bitcount_t(sizeof(itype) * 8);
+        constexpr auto xtypebits          = bitcount_t(sizeof(xtype) * 8);
         constexpr bitcount_t sparebits    = bits - xtypebits;
         constexpr bitcount_t wantedopbits = xtypebits >= 128
             ? 7
@@ -997,8 +997,8 @@ struct xsh_rr_mixin
             opbits ? bitcount_t(internal >> (bits - opbits)) & mask : 0;
         bitcount_t amprot = (rot << amplifier) & mask;
         internal ^= internal >> xshift;
-        xtype result = xtype(internal >> bottomspare);
-        result       = rotr(result, amprot);
+        auto result = xtype(internal >> bottomspare);
+        result      = rotr(result, amprot);
         return result;
     }
 };
@@ -1013,8 +1013,8 @@ struct rxs_mixin
     static xtype
     output_rxs(itype internal)
     {
-        constexpr bitcount_t bits       = bitcount_t(sizeof(itype) * 8);
-        constexpr bitcount_t xtypebits  = bitcount_t(sizeof(xtype) * 8);
+        constexpr auto bits             = bitcount_t(sizeof(itype) * 8);
+        constexpr auto xtypebits        = bitcount_t(sizeof(xtype) * 8);
         constexpr bitcount_t shift      = bits - xtypebits;
         constexpr bitcount_t extrashift = (xtypebits - shift) / 2;
         bitcount_t rshift = shift > 64 + 8 ? (internal >> (bits - 6)) & 63
@@ -1089,9 +1089,9 @@ struct rxs_m_xs_mixin
     static xtype
     output(itype internal)
     {
-        constexpr bitcount_t xtypebits = bitcount_t(sizeof(xtype) * 8);
-        constexpr bitcount_t bits      = bitcount_t(sizeof(itype) * 8);
-        constexpr bitcount_t opbits    = xtypebits >= 128
+        constexpr auto xtypebits    = bitcount_t(sizeof(xtype) * 8);
+        constexpr auto bits         = bitcount_t(sizeof(itype) * 8);
+        constexpr bitcount_t opbits = xtypebits >= 128
             ? 6
             : xtypebits >= 64 ? 5
                               : xtypebits >= 32 ? 4 : xtypebits >= 16 ? 3 : 2;
@@ -1109,7 +1109,7 @@ struct rxs_m_xs_mixin
     static itype
     unoutput(itype internal)
     {
-        constexpr bitcount_t bits   = bitcount_t(sizeof(itype) * 8);
+        constexpr auto bits         = bitcount_t(sizeof(itype) * 8);
         constexpr bitcount_t opbits = bits >= 128
             ? 6
             : bits >= 64 ? 5 : bits >= 32 ? 4 : bits >= 16 ? 3 : 2;
@@ -1136,9 +1136,9 @@ struct rxs_m_mixin
     static xtype
     output(itype internal)
     {
-        constexpr bitcount_t xtypebits = bitcount_t(sizeof(xtype) * 8);
-        constexpr bitcount_t bits      = bitcount_t(sizeof(itype) * 8);
-        constexpr bitcount_t opbits    = xtypebits >= 128
+        constexpr auto xtypebits    = bitcount_t(sizeof(xtype) * 8);
+        constexpr auto bits         = bitcount_t(sizeof(itype) * 8);
+        constexpr bitcount_t opbits = xtypebits >= 128
             ? 6
             : xtypebits >= 64 ? 5
                               : xtypebits >= 32 ? 4 : xtypebits >= 16 ? 3 : 2;
@@ -1164,8 +1164,8 @@ struct xsl_rr_mixin
     static xtype
     output(itype internal)
     {
-        constexpr bitcount_t xtypebits    = bitcount_t(sizeof(xtype) * 8);
-        constexpr bitcount_t bits         = bitcount_t(sizeof(itype) * 8);
+        constexpr auto xtypebits          = bitcount_t(sizeof(xtype) * 8);
+        constexpr auto bits               = bitcount_t(sizeof(itype) * 8);
         constexpr bitcount_t sparebits    = bits - xtypebits;
         constexpr bitcount_t wantedopbits = xtypebits >= 128
             ? 7
@@ -1183,8 +1183,8 @@ struct xsl_rr_mixin
             opbits ? bitcount_t(internal >> (bits - opbits)) & mask : 0;
         bitcount_t amprot = (rot << amplifier) & mask;
         internal ^= internal >> xshift;
-        xtype result = xtype(internal >> bottomspare);
-        result       = rotr(result, amprot);
+        auto result = xtype(internal >> bottomspare);
+        result      = rotr(result, amprot);
         return result;
     }
 };
@@ -1229,8 +1229,8 @@ struct xsl_rr_rr_mixin
     static itype
     output(itype internal)
     {
-        constexpr bitcount_t htypebits    = bitcount_t(sizeof(htype) * 8);
-        constexpr bitcount_t bits         = bitcount_t(sizeof(itype) * 8);
+        constexpr auto htypebits          = bitcount_t(sizeof(htype) * 8);
+        constexpr auto bits               = bitcount_t(sizeof(itype) * 8);
         constexpr bitcount_t sparebits    = bits - htypebits;
         constexpr bitcount_t wantedopbits = htypebits >= 128
             ? 7
@@ -1269,8 +1269,8 @@ struct xsh_mixin
     static xtype
     output(itype internal)
     {
-        constexpr bitcount_t xtypebits   = bitcount_t(sizeof(xtype) * 8);
-        constexpr bitcount_t bits        = bitcount_t(sizeof(itype) * 8);
+        constexpr auto xtypebits         = bitcount_t(sizeof(xtype) * 8);
+        constexpr auto bits              = bitcount_t(sizeof(itype) * 8);
         constexpr bitcount_t sparebits   = bits - xtypebits;
         constexpr bitcount_t topspare    = 0;
         constexpr bitcount_t bottomspare = sparebits - topspare;
@@ -1294,8 +1294,8 @@ struct xsl_mixin
     inline xtype
     output(itype internal)
     {
-        constexpr bitcount_t xtypebits   = bitcount_t(sizeof(xtype) * 8);
-        constexpr bitcount_t bits        = bitcount_t(sizeof(itype) * 8);
+        constexpr auto xtypebits         = bitcount_t(sizeof(xtype) * 8);
+        constexpr auto bits              = bitcount_t(sizeof(itype) * 8);
         constexpr bitcount_t sparebits   = bits - xtypebits;
         constexpr bitcount_t topspare    = sparebits;
         constexpr bitcount_t bottomspare = sparebits - topspare;
