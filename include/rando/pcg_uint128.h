@@ -64,10 +64,10 @@ namespace pcg_extras
 // them out.
 
 // clang-format off
-#ifndef PCG_BITCOUNT_T
+#ifndef RANDO_PCG_BITCOUNT_T
     typedef uint8_t bitcount_t;
 #else
-    typedef PCG_BITCOUNT_T bitcount_t;
+    typedef RANDO_PCG_BITCOUNT_T bitcount_t;
 #endif
 // clang-format on
 

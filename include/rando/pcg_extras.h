@@ -74,14 +74,14 @@ namespace pcg_extras
 // clang-format off
 #if __SIZEOF_INT128__
         typedef __uint128_t pcg128_t;
-    #define PCG_128BIT_CONSTANT(high,low) \
+    #define RANDO_PCG_128BIT_CONSTANT(high,low) \
             ((pcg128_t(high) << 64) + low)
 #else
     #include "pcg_uint128.h"
         typedef pcg_extras::uint_x4<uint32_t,uint64_t> pcg128_t;
-    #define PCG_128BIT_CONSTANT(high,low) \
+    #define RANDO_PCG_128BIT_CONSTANT(high,low) \
             pcg128_t(high,low)
-    #define PCG_EMULATED_128BIT_MATH 1
+    #define RANDO_PCG_EMULATED_128BIT_MATH 1
 #endif
 // clang-format on
 
@@ -89,15 +89,15 @@ namespace pcg_extras
  * We often need to represent a "number of bits".  When used normally, these
  * numbers are never greater than 128, so an unsigned char is plenty.
  * If you're using a nonstandard generator of a larger size, you can set
- * PCG_BITCOUNT_T to have it define it as a larger size.  (Some compilers
+ * RANDO_PCG_BITCOUNT_T to have it define it as a larger size.  (Some compilers
  * might produce faster code if you set it to an unsigned int.)
  */
 
 // clang-format off
-#ifndef PCG_BITCOUNT_T
+#ifndef RANDO_PCG_BITCOUNT_T
     typedef uint8_t bitcount_t;
 #else
-    typedef PCG_BITCOUNT_T bitcount_t;
+    typedef RANDO_PCG_BITCOUNT_T bitcount_t;
 #endif
 // clang-format on
 
@@ -289,7 +289,7 @@ unxorshift(itype x, bitcount_t bits, bitcount_t shift)
  * In ideal world, compilers would spot idiomatic rotate code and convert it
  * to a rotate instruction.  Of course, opinions vary on what the correct
  * idiom is and how to spot it.  For clang, sometimes it generates better
- * (but still crappy) code if you define PCG_USE_ZEROCHECK_ROTATE_IDIOM.
+ * (but still crappy) code if you define RANDO_PCG_USE_ZEROCHECK_ROTATE_IDIOM.
  */
 
 template <typename itype>
@@ -298,7 +298,7 @@ rotl(itype value, bitcount_t rot)
 {
     constexpr bitcount_t bits = sizeof(itype) * 8;
     constexpr bitcount_t mask = bits - 1;
-#if PCG_USE_ZEROCHECK_ROTATE_IDIOM
+#if RANDO_PCG_USE_ZEROCHECK_ROTATE_IDIOM
     return rot ? (value << rot) | (value >> (bits - rot)) : value;
 #else
     return (value << rot) | (value >> ((-rot) & mask));
@@ -311,7 +311,7 @@ rotr(itype value, bitcount_t rot)
 {
     constexpr bitcount_t bits = sizeof(itype) * 8;
     constexpr bitcount_t mask = bits - 1;
-#if PCG_USE_ZEROCHECK_ROTATE_IDIOM
+#if RANDO_PCG_USE_ZEROCHECK_ROTATE_IDIOM
     return rot ? (value >> rot) | (value << (bits - rot)) : value;
 #else
     return (value >> rot) | (value << ((-rot) & mask));
@@ -320,12 +320,12 @@ rotr(itype value, bitcount_t rot)
 
 /* Unfortunately, both Clang and GCC sometimes perform poorly when it comes
  * to properly recognizing idiomatic rotate code, so for we also provide
- * assembler directives (enabled with PCG_USE_INLINE_ASM).  Boo, hiss.
+ * assembler directives (enabled with RANDO_PCG_USE_INLINE_ASM).  Boo, hiss.
  * (I hope that these compilers get better so that this code can die.)
  *
  * These overloads will be preferred over the general template code above.
  */
-#if PCG_USE_INLINE_ASM && __GNUC__ && (__x86_64__ || __i386__)
+#if RANDO_PCG_USE_INLINE_ASM && __GNUC__ && (__x86_64__ || __i386__)
 
 inline uint8_t
 rotr(uint8_t value, bitcount_t rot)
@@ -357,7 +357,7 @@ rotr(uint64_t value, bitcount_t rot)
 }
 #endif // __x86_64__
 
-#endif // PCG_USE_INLINE_ASM
+#endif // RANDO_PCG_USE_INLINE_ASM
 
 /*
  * The C++ SeedSeq concept (modelled by seed_seq) can fill an array of

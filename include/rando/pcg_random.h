@@ -158,13 +158,13 @@ RANDO_DEFINE_CONSTANT(uint64_t, default, increment, 1442695040888963407ULL)
 RANDO_DEFINE_CONSTANT(pcg128_t,
                       default,
                       multiplier,
-                      PCG_128BIT_CONSTANT(2549297995355413924ULL,
-                                          4865540595714422341ULL))
+                      RANDO_PCG_128BIT_CONSTANT(2549297995355413924ULL,
+                                                4865540595714422341ULL))
 RANDO_DEFINE_CONSTANT(pcg128_t,
                       default,
                       increment,
-                      PCG_128BIT_CONSTANT(6364136223846793005ULL,
-                                          1442695040888963407ULL))
+                      RANDO_PCG_128BIT_CONSTANT(6364136223846793005ULL,
+                                                1442695040888963407ULL))
 
 /*
  * Each PCG generator is available in four variants, based on how it applies
@@ -1075,13 +1075,13 @@ RANDO_DEFINE_CONSTANT(uint64_t, mcg, unmultiplier, 15009553638781119849ULL)
 RANDO_DEFINE_CONSTANT(pcg128_t,
                       mcg,
                       multiplier,
-                      PCG_128BIT_CONSTANT(17766728186571221404ULL,
-                                          12605985483714917081ULL))
+                      RANDO_PCG_128BIT_CONSTANT(17766728186571221404ULL,
+                                                12605985483714917081ULL))
 RANDO_DEFINE_CONSTANT(pcg128_t,
                       mcg,
                       unmultiplier,
-                      PCG_128BIT_CONSTANT(14422606686972528997ULL,
-                                          15009553638781119849ULL))
+                      RANDO_PCG_128BIT_CONSTANT(14422606686972528997ULL,
+                                                15009553638781119849ULL))
 
 template <typename xtype, typename itype>
 struct rxs_m_xs_mixin
