@@ -37,7 +37,7 @@
 #include <cstddef>
 #include <cstdlib>
 #include <cstring>
-#include <iostream>
+#include <iosfwd>
 #include <iterator>
 #include <locale>
 #include <type_traits>
