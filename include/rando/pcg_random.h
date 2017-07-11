@@ -81,12 +81,13 @@
 #include <cstring>
 #include <iostream>
 #include <iterator>
-#include <limits>
 #include <locale>
 #include <new>
 #include <stdexcept>
 #include <type_traits>
 #include <utility>
+
+#include "macros.h"
 
 /*
  * The pcg_extras namespace contains some support code that is likley to
@@ -448,9 +449,13 @@ public:
     operator()()
     {
         if (output_previous)
+        {
             return this->output(base_generate0());
+        }
         else
+        {
             return this->output(base_generate());
+        }
     }
 
     result_type
@@ -1347,9 +1352,11 @@ struct inside_out : private baseclass
         bool crosses_zero =
             forwards ? dist_to_zero <= delta : (-dist_to_zero) <= delta;
         if (!forwards)
+        {
             delta = -delta;
-        state     = baseclass::advance(state, delta, mult, inc);
-        randval   = baseclass::output(state);
+        }
+        state   = baseclass::advance(state, delta, mult, inc);
+        randval = baseclass::output(state);
         return crosses_zero;
     }
 };
@@ -1411,13 +1418,17 @@ private:
             bool tick = kdd ? (state & tick_mask) == state_type(0u)
                             : (state >> tick_shift) == state_type(0u);
             if (tick)
+            {
                 advance_table();
+            }
         }
         if (may_tock)
         {
             bool tock = state == state_type(0u);
             if (tock)
+            {
                 advance_table();
+            }
         }
         return data_[index];
     }
@@ -1572,7 +1583,9 @@ extended<table_pow2, advance_pow2, baseclass, extvalclass, kdd>::datainit(
     const result_type* data)
 {
     for (size_t i = 0; i < table_size; ++i)
-        data_[i]  = data[i];
+    {
+        data_[i] = data[i];
+    }
 }
 
 template <bitcount_t table_pow2,
@@ -1650,7 +1663,9 @@ operator<<(
     out << rng.multiplier() << space << rng.increment() << space << rng.state_;
 
     for (const auto& datum : rng.data_)
+    {
         out << space << datum;
+    }
 
     out.flags(orig_flags);
     out.fill(orig_fill);
@@ -1673,7 +1688,9 @@ operator>>(std::basic_istream<CharT, Traits>& in,
     in >> base_rng;
 
     if (in.fail())
+    {
         return in;
+    }
 
     auto orig_flags = in.flags(std::ios_base::dec | std::ios_base::skipws);
 
@@ -1681,7 +1698,9 @@ operator>>(std::basic_istream<CharT, Traits>& in,
     {
         in >> datum;
         if (in.fail())
+        {
             goto bail;
+        }
     }
 
     rng = new_rng;
@@ -1767,24 +1786,32 @@ extended<table_pow2, advance_pow2, baseclass, extvalclass, kdd>::advance(
         state_type adv_mask = baseclass::is_mcg ? tick_mask << 2 : tick_mask;
         state_type next_advance_distance = this->distance(zero, adv_mask);
         if (!forwards)
+        {
             next_advance_distance = (-next_advance_distance) & tick_mask;
+        }
         if (next_advance_distance < (distance & tick_mask))
         {
             ++ticks;
         }
         if (ticks)
+        {
             advance_table(ticks, forwards);
+        }
     }
     if (forwards)
     {
         if (may_tock && this->distance(zero) <= distance)
+        {
             advance_table();
+        }
         baseclass::advance(distance);
     }
     else
     {
         if (may_tock && -(this->distance(zero)) <= distance)
+        {
             advance_table(state_type(1U), false);
+        }
         baseclass::advance(-distance);
     }
 }

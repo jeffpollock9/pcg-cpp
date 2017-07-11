@@ -36,11 +36,8 @@
 #ifndef RANDO_PCG_UINT128_H
 #define RANDO_PCG_UINT128_H
 
-#include <cassert>
 #include <climits>
 #include <cstdint>
-#include <cstdio>
-#include <initializer_list>
 #include <type_traits>
 #include <utility>
 
@@ -458,7 +455,9 @@ flog2(const uint_x4<U, V>& v)
     {
 #endif
         if (v.wa[i] == 0)
+        {
             continue;
+        }
         return flog2(v.wa[i]) + (sizeof(U) * CHAR_BIT) * i;
     }
     abort();
@@ -477,7 +476,9 @@ trailingzeros(const uint_x4<U, V>& v)
         --i;
 #endif
         if (v.wa[i] != 0)
+        {
             return trailingzeros(v.wa[i]) + (sizeof(U) * CHAR_BIT) * i;
+        }
     }
     return (sizeof(U) * CHAR_BIT) * 4;
 }
@@ -492,18 +493,22 @@ divmod(const uint_x4<UInt, UIntX2>& orig_dividend,
     // problematic because we can't take the log of zero.  (The boundary case
     // of division by zero is undefined.)
     if (orig_dividend < divisor)
+    {
         return {uint_x4<UInt, UIntX2>(0UL), orig_dividend};
+    }
 
     auto dividend = orig_dividend;
 
     auto log2_divisor  = flog2(divisor);
     auto log2_dividend = flog2(dividend);
-    // assert(log2_dividend >= log2_divisor);
+
     bitcount_t logdiff = log2_dividend - log2_divisor;
 
     constexpr uint_x4<UInt, UIntX2> ONE(1UL);
     if (logdiff == 0)
+    {
         return {ONE, dividend - divisor};
+    }
 
     // Now we change the log difference to
     //  floor(log2(divisor)) - ceil(log2(dividend))

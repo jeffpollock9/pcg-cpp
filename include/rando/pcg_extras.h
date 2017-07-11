@@ -33,22 +33,18 @@
 #ifndef RANDO_PCG_EXTRAS_H
 #define RANDO_PCG_EXTRAS_H
 
-#include <cassert>
 #include <cinttypes>
 #include <cstddef>
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
 #include <iterator>
-#include <limits>
 #include <locale>
 #include <type_traits>
 #include <utility>
 #ifdef __GNUC__
 #include <cxxabi.h>
 #endif
-
-#include "macros.h"
 
 namespace rando
 {
@@ -127,7 +123,9 @@ operator<<(std::basic_ostream<CharT, Traits>& out, pcg128_t value)
             out.width(desired_width - 16);
         }
         if (highpart != 0 || desired_width > 16)
+        {
             out << highpart;
+        }
         CharT oldfill = '\0';
         if (highpart != 0)
         {
@@ -166,7 +164,9 @@ operator>>(std::basic_istream<CharT, Traits>& in, pcg128_t& value)
     typename std::basic_istream<CharT, Traits>::sentry s(in);
 
     if (!s)
+    {
         return in;
+    }
 
     constexpr auto BASE = pcg128_t(10ULL);
     pcg128_t current(0ULL);
@@ -176,7 +176,9 @@ operator>>(std::basic_istream<CharT, Traits>& in, pcg128_t& value)
     {
         CharT wide_ch = in.get();
         if (!in.good())
+        {
             break;
+        }
         auto ch = in.narrow(wide_ch, '\0');
         if (ch < '0' || ch > '9')
         {
@@ -195,7 +197,9 @@ operator>>(std::basic_istream<CharT, Traits>& in, pcg128_t& value)
     {
         in.setstate(std::ios::failbit);
         if (overflow)
+        {
             current = ~pcg128_t(0ULL);
+        }
     }
 
     value = current;
@@ -224,7 +228,9 @@ operator>>(std::basic_istream<CharT, Traits>& in, uint8_t& target)
     uint32_t value = 0xdecea5edU;
     in >> value;
     if (!in && value == 0xdecea5edU)
+    {
         return in;
+    }
     if (value > uint8_t(~0))
     {
         in.setstate(std::ios::failbit);
@@ -407,9 +413,13 @@ uneven_copy_impl(SrcIter src_first,
     while (dest_first != dest_last)
     {
         if ((count++ % SCALE) == 0)
+        {
             value = *src_first++; // Get more bits
+        }
         else
+        {
             value >>= DEST_BITS; // Move down bits
+        }
 
         *dest_first++ = dest_t(value); // Truncates, ignores high bits.
     }
@@ -547,7 +557,9 @@ bounded_rand(RngType& rng, typename RngType::result_type upper_bound) ->
     {
         rtype r = rng() - RngType::min();
         if (r >= threshold)
+        {
             return r % upper_bound;
+        }
     }
 }
 
@@ -601,7 +613,9 @@ public:
     generate(Iter start, Iter finish)
     {
         for (auto i = start; i != finish; ++i)
+        {
             *i = result_type(rng_());
+        }
     }
 
     constexpr size_t
@@ -661,10 +675,14 @@ operator<<(std::ostream& out, printable_typename<T>)
     char* pretty_name =
         abi::__cxa_demangle(implementation_typename, nullptr, nullptr, &status);
     if (status == 0)
+    {
         out << pretty_name;
+    }
     free(static_cast<void*>(pretty_name));
     if (status == 0)
+    {
         return out;
+    }
 #endif
     out << implementation_typename;
     return out;
