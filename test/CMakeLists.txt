@@ -1,6 +1,6 @@
 
 set(RANDO_TESTS
-    pcg32)
+    first_1k_equal)
 
 foreach (test ${RANDO_TESTS})
     set(TEST_NAME "${test}_test")

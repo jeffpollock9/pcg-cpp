@@ -1,6 +1,6 @@
 
 set(RANDO_BENCHMARKS
-    foo)
+    random_uniform)
 
 foreach (benchmark ${RANDO_BENCHMARKS})
     set(BENCHMARK_NAME "${benchmark}_benchmark")
