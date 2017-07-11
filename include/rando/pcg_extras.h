@@ -71,7 +71,7 @@ namespace pcg_extras
 #if __SIZEOF_INT128__
         typedef __uint128_t pcg128_t;
     #define RANDO_PCG_128BIT_CONSTANT(high,low) \
-            ((pcg128_t(high) << 64) + low)
+            ((pcg128_t(high) << 64) + (low))
 #else
     #include "pcg_uint128.h"
         typedef pcg_extras::uint_x4<uint32_t,uint64_t> pcg128_t;
