@@ -132,7 +132,7 @@ struct default_increment
     // Not defined for an arbitrary type
 };
 
-#define RANDO_DEFINE_CONSTANT(type, what, kind, constant)                        \
+#define RANDO_DEFINE_CONSTANT(type, what, kind, constant)                      \
     template <>                                                                \
     struct what##_##kind<type>                                                 \
     {                                                                          \
@@ -156,15 +156,15 @@ RANDO_DEFINE_CONSTANT(uint64_t, default, multiplier, 6364136223846793005ULL)
 RANDO_DEFINE_CONSTANT(uint64_t, default, increment, 1442695040888963407ULL)
 
 RANDO_DEFINE_CONSTANT(pcg128_t,
-                    default,
-                    multiplier,
-                    PCG_128BIT_CONSTANT(2549297995355413924ULL,
-                                        4865540595714422341ULL))
+                      default,
+                      multiplier,
+                      PCG_128BIT_CONSTANT(2549297995355413924ULL,
+                                          4865540595714422341ULL))
 RANDO_DEFINE_CONSTANT(pcg128_t,
-                    default,
-                    increment,
-                    PCG_128BIT_CONSTANT(6364136223846793005ULL,
-                                        1442695040888963407ULL))
+                      default,
+                      increment,
+                      PCG_128BIT_CONSTANT(6364136223846793005ULL,
+                                          1442695040888963407ULL))
 
 /*
  * Each PCG generator is available in four variants, based on how it applies
@@ -1073,15 +1073,15 @@ RANDO_DEFINE_CONSTANT(uint64_t, mcg, multiplier, 12605985483714917081ULL)
 RANDO_DEFINE_CONSTANT(uint64_t, mcg, unmultiplier, 15009553638781119849ULL)
 
 RANDO_DEFINE_CONSTANT(pcg128_t,
-                    mcg,
-                    multiplier,
-                    PCG_128BIT_CONSTANT(17766728186571221404ULL,
-                                        12605985483714917081ULL))
+                      mcg,
+                      multiplier,
+                      PCG_128BIT_CONSTANT(17766728186571221404ULL,
+                                          12605985483714917081ULL))
 RANDO_DEFINE_CONSTANT(pcg128_t,
-                    mcg,
-                    unmultiplier,
-                    PCG_128BIT_CONSTANT(14422606686972528997ULL,
-                                        15009553638781119849ULL))
+                      mcg,
+                      unmultiplier,
+                      PCG_128BIT_CONSTANT(14422606686972528997ULL,
+                                          15009553638781119849ULL))
 
 template <typename xtype, typename itype>
 struct rxs_m_xs_mixin
