@@ -352,7 +352,7 @@ public:
 protected:
     specific_stream() = default;
 
-    specific_stream(itype specific_seq)
+    explicit specific_stream(itype specific_seq)
         : inc_(itype(specific_seq << 1) | itype(1U))
     {
         // Nothing (else) to do.
@@ -516,7 +516,7 @@ public:
         }
     }
 
-    engine(itype state = itype(0xcafef00dd15ea5e5ULL))
+    explicit engine(itype state = itype(0xcafef00dd15ea5e5ULL))
         : state_(this->is_mcg ? state | state_type(3U)
                               : bump(state + this->increment()))
     {
@@ -536,7 +536,7 @@ public:
     }
 
     template <typename SeedSeq>
-    engine(SeedSeq&& seedSeq,
+    explicit engine(SeedSeq&& seedSeq,
            typename std::enable_if<
                !stream_mixin::can_specify_stream &&
                    !std::is_convertible<SeedSeq, itype>::value &&
@@ -548,7 +548,7 @@ public:
     }
 
     template <typename SeedSeq>
-    engine(SeedSeq&& seedSeq,
+    explicit engine(SeedSeq&& seedSeq,
            typename std::enable_if<
                stream_mixin::can_specify_stream &&
                    !std::is_convertible<SeedSeq, itype>::value &&
@@ -1472,7 +1472,7 @@ public:
         advance(distance, false);
     }
 
-    extended(const result_type* data) : baseclass() { datainit(data); }
+    explicit extended(const result_type* data) : baseclass() { datainit(data); }
 
     extended(const result_type* data, state_type seed) : baseclass(seed)
     {
@@ -1493,7 +1493,7 @@ public:
 
     extended() : baseclass() { selfinit(); }
 
-    extended(state_type seed) : baseclass(seed) { selfinit(); }
+    explicit extended(state_type seed) : baseclass(seed) { selfinit(); }
 
     // This function may or may not exist.  It thus has to be a template
     // to use SFINAE; users don't have to worry about its template-ness.
@@ -1516,7 +1516,7 @@ public:
               typename = typename std::enable_if<
                   !std::is_convertible<SeedSeq, result_type>::value &&
                   !std::is_convertible<SeedSeq, extended>::value>::type>
-    extended(SeedSeq&& seedSeq) : baseclass(seedSeq)
+    explicit extended(SeedSeq&& seedSeq) : baseclass(seedSeq)
     {
         generate_to<table_size>(seedSeq, data_);
     }

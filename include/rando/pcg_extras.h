@@ -603,7 +603,7 @@ private:
 
 public:
     template <typename... Args>
-    seed_seq_from(Args&&... args) : rng_(std::forward<Args>(args)...)
+    explicit seed_seq_from(Args&&... args) : rng_(std::forward<Args>(args)...)
     {
         // Nothing (else) to do...
     }

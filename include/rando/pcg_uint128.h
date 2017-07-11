@@ -263,7 +263,7 @@ public:
               typename std::enable_if<(std::is_integral<Integral>::value &&
                                        sizeof(Integral) <=
                                            sizeof(UIntX2))>::type* = nullptr>
-    constexpr uint_x4(Integral v01)
+    constexpr explicit uint_x4(Integral v01)
 #if RANDO_LITTLE_ENDIAN
         : d
     {
