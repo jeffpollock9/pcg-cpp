@@ -537,11 +537,11 @@ public:
 
     template <typename SeedSeq>
     explicit engine(SeedSeq&& seedSeq,
-           typename std::enable_if<
-               !stream_mixin::can_specify_stream &&
-                   !std::is_convertible<SeedSeq, itype>::value &&
-                   !std::is_convertible<SeedSeq, engine>::value,
-               no_specifiable_stream_tag>::type = {})
+                    typename std::enable_if<
+                        !stream_mixin::can_specify_stream &&
+                            !std::is_convertible<SeedSeq, itype>::value &&
+                            !std::is_convertible<SeedSeq, engine>::value,
+                        no_specifiable_stream_tag>::type = {})
         : engine(generate_one<itype>(std::forward<SeedSeq>(seedSeq)))
     {
         // Nothing else to do.
@@ -549,11 +549,11 @@ public:
 
     template <typename SeedSeq>
     explicit engine(SeedSeq&& seedSeq,
-           typename std::enable_if<
-               stream_mixin::can_specify_stream &&
-                   !std::is_convertible<SeedSeq, itype>::value &&
-                   !std::is_convertible<SeedSeq, engine>::value,
-               can_specify_stream_tag>::type = {})
+                    typename std::enable_if<
+                        stream_mixin::can_specify_stream &&
+                            !std::is_convertible<SeedSeq, itype>::value &&
+                            !std::is_convertible<SeedSeq, engine>::value,
+                        can_specify_stream_tag>::type = {})
         : engine(generate_one<itype, 1, 2>(seedSeq),
                  generate_one<itype, 0, 2>(seedSeq))
     {
