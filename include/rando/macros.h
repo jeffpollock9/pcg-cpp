@@ -5,8 +5,10 @@
 
 #ifdef __GNUC__
     #define RANDO_NOINLINE __attribute__((noinline))
+    #define RANDO_ALWAYS_INLINE __attribute__((always_inline))
 #else
     #define RANDO_NOINLINE
+    #define RANDO_ALWAYS_INLINE
 #endif
 
 #ifndef RANDO_LITTLE_ENDIAN

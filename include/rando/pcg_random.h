@@ -1441,7 +1441,7 @@ public:
             table_size * extvalclass::period_pow2();
     }
 
-    __attribute__((always_inline)) result_type
+    RANDO_ALWAYS_INLINE result_type
     operator()()
     {
         result_type rhs = get_extended_value();
