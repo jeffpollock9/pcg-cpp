@@ -5,18 +5,19 @@ project(rando LANGUAGES CXX VERSION "0.0.1")
 option(RANDO_TEST "Enable testing" OFF)
 option(RANDO_BENCHMARK "Enable benchmarks" OFF)
 
-message("-- Configuring rando version: ${PROJECT_VERSION}")
-message("--   Options:")
-message("--     RANDO_TEST: ${RANDO_TEST}")
-message("--     RANDO_BENCHMARK: ${RANDO_BENCHMARK}")
+message(STATUS "Configuring rando version: ${PROJECT_VERSION}")
+message(STATUS "  Options:")
+message(STATUS "   RANDO_TEST: ${RANDO_TEST}")
+message(STATUS "   RANDO_BENCHMARK: ${RANDO_BENCHMARK}")
 
 add_library(rando INTERFACE)
 
 target_include_directories(rando INTERFACE
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
 
-## TODO: find better way
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wextra -pedantic")
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 if (RANDO_TEST OR RANDO_BENCHMARK)
     add_subdirectory(ext/pcg-cpp)
